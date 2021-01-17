@@ -2,7 +2,9 @@ package com.xiaowu.shardingjdbcdemo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaowu.shardingjdbcdemo.dao.CourseMapper;
+import com.xiaowu.shardingjdbcdemo.dao.UserMapper;
 import com.xiaowu.shardingjdbcdemo.dto.Course;
+import com.xiaowu.shardingjdbcdemo.dto.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class ShardingjdbcdemoApplicationTests {
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private UserMapper userMapper;
     
     /**
      * 水平分表新增数据测试
@@ -40,6 +44,7 @@ public class ShardingjdbcdemoApplicationTests {
         Course course = courseMapper.selectOne(queryWrapper);
         System.out.println(course);
     }
+    
     /**
      * 水平分表分库新增数据测试
      */
@@ -57,7 +62,6 @@ public class ShardingjdbcdemoApplicationTests {
     /**
      * 水平分表分库查询测试
      */
-    @Test
     public void queryCourseByIdForDatabase() {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         Course paramCourse = new Course();
@@ -69,4 +73,28 @@ public class ShardingjdbcdemoApplicationTests {
         System.out.println(course);
     }
     
+    /**
+     * 垂直分表新增测试
+     */
+    public void insertUser(){
+        String[] users = {"xiaowu", "xiaoming", "xiangwang", "xiaoli", "xiaohong"};
+        for (int i = 0; i < users.length; i++) {
+            User user = new User();
+            user.setUserName(users[i]);
+            user.setUserStatus("E");
+            userMapper.insert(user);
+        }
+    }
+    /**
+     * 垂直分表查询测试
+     */
+    @Test
+    public void queryUserById() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        User paramUser = new User();
+        paramUser.setUserId(557645247316754433L);
+        queryWrapper.setEntity(paramUser);
+        User user = userMapper.selectOne(queryWrapper);
+        System.out.println(user);
+    }
 }

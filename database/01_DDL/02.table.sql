@@ -17,3 +17,12 @@ CREATE TABLE IF NOT EXISTS `course_2`(
    PRIMARY KEY ( `course_id` )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*add wujiafeng 2020/01/15 课程表2 end*/
+
+/*add wujiafeng 2020/01/17 用户表 start*/
+CREATE TABLE IF NOT EXISTS `user`(
+   `user_id` BIGINT  comment '主键',
+   `user_name` VARCHAR(200) NOT NULL comment '用户名称',
+   `user_status` VARCHAR(1) NOT NULL comment '用户状态',
+   PRIMARY KEY ( `user_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*add wujiafeng 2020/01/17 用户表 end*/
