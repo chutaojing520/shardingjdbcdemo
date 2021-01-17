@@ -26,3 +26,14 @@ CREATE TABLE IF NOT EXISTS `user`(
    PRIMARY KEY ( `user_id` )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*add wujiafeng 2020/01/17 用户表 end*/
+
+/*add wujiafeng 2020/01/17 数据字典表 start*/
+CREATE TABLE IF NOT EXISTS `sttc_dict`(
+   `dict_id` BIGINT  comment '主键',
+   `dict_cnname` VARCHAR(2000) NOT NULL comment '数据字典中文名称',
+   `dict_name` VARCHAR(2000) NOT NULL comment '数据字典名称',
+   `dict_value` VARCHAR(2000) NOT NULL comment '数据字典值',
+   `dict_status` VARCHAR(1) NOT NULL comment '数据字典状态',
+   PRIMARY KEY ( `dict_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*add wujiafeng 2020/01/17 数据字典表 end*/

@@ -2,14 +2,18 @@ package com.xiaowu.shardingjdbcdemo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiaowu.shardingjdbcdemo.dao.CourseMapper;
+import com.xiaowu.shardingjdbcdemo.dao.DataDictMapper;
 import com.xiaowu.shardingjdbcdemo.dao.UserMapper;
 import com.xiaowu.shardingjdbcdemo.dto.Course;
+import com.xiaowu.shardingjdbcdemo.dto.DataDict;
 import com.xiaowu.shardingjdbcdemo.dto.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,6 +22,8 @@ public class ShardingjdbcdemoApplicationTests {
     private CourseMapper courseMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private DataDictMapper dataDictMapper;
     
     /**
      * 水平分表新增数据测试
@@ -76,7 +82,7 @@ public class ShardingjdbcdemoApplicationTests {
     /**
      * 垂直分库新增测试
      */
-    public void insertUser(){
+    public void insertUser() {
         String[] users = {"xiaowu", "xiaoming", "xiangwang", "xiaoli", "xiaohong"};
         for (int i = 0; i < users.length; i++) {
             User user = new User();
@@ -85,10 +91,10 @@ public class ShardingjdbcdemoApplicationTests {
             userMapper.insert(user);
         }
     }
+    
     /**
      * 垂直分库查询测试
      */
-    @Test
     public void queryUserById() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         User paramUser = new User();
@@ -97,4 +103,44 @@ public class ShardingjdbcdemoApplicationTests {
         User user = userMapper.selectOne(queryWrapper);
         System.out.println(user);
     }
+    
+    /**
+     * 公共表新增测试
+     */
+    public void insertDataDict() {
+        String[] citys = {"合肥", "南京", "杭州", "上海", "福州"};
+        for (int i = 0; i < citys.length; i++) {
+            DataDict dataDict = new DataDict();
+            dataDict.setDictCnname("城市名称");
+            dataDict.setDictName(citys[i]);
+            dataDict.setDictValue(i + "");
+            dataDict.setDictStatus("E");
+            dataDictMapper.insert(dataDict);
+        }
+    }
+    
+    /**
+     * 公共表删除测试
+     */
+    @Test
+    public void deleteDataDictById() {
+        QueryWrapper<DataDict> queryWrapper = new QueryWrapper<>();
+        DataDict paramDataDict = new DataDict();
+        paramDataDict.setDictId(557667931048116225L);
+        queryWrapper.setEntity(paramDataDict);
+        dataDictMapper.delete(queryWrapper);
+    }
+    
+    /**
+     * 公共表查询测试
+     */
+    public void queryDataDictById() {
+        QueryWrapper<DataDict> queryWrapper = new QueryWrapper<>();
+        DataDict paramDataDict = new DataDict();
+        paramDataDict.setDictId(557667931048116225L);
+        queryWrapper.setEntity(paramDataDict);
+        List<DataDict> dataDictList = dataDictMapper.selectList(queryWrapper);
+        System.out.println(dataDictList);
+    }
+    
 }
