@@ -74,7 +74,7 @@ public class ShardingjdbcdemoApplicationTests {
     }
     
     /**
-     * 垂直分表新增测试
+     * 垂直分库新增测试
      */
     public void insertUser(){
         String[] users = {"xiaowu", "xiaoming", "xiangwang", "xiaoli", "xiaohong"};
@@ -86,7 +86,7 @@ public class ShardingjdbcdemoApplicationTests {
         }
     }
     /**
-     * 垂直分表查询测试
+     * 垂直分库查询测试
      */
     @Test
     public void queryUserById() {
