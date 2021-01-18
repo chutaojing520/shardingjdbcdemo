@@ -122,7 +122,6 @@ public class ShardingjdbcdemoApplicationTests {
     /**
      * 公共表删除测试
      */
-    @Test
     public void deleteDataDictById() {
         QueryWrapper<DataDict> queryWrapper = new QueryWrapper<>();
         DataDict paramDataDict = new DataDict();
@@ -142,5 +141,39 @@ public class ShardingjdbcdemoApplicationTests {
         List<DataDict> dataDictList = dataDictMapper.selectList(queryWrapper);
         System.out.println(dataDictList);
     }
+    /**
+    * @Description 主从操作测试
+    * @Author  chutaojing
+    * @Param
+    * @Return
+    * @Exception
+    * @Date   2021/01/18
+    */
+    public void inserUserOfMS(){
+        String[] users = {"xiaowu", "xiaoming", "xiangwang", "xiaoli", "xiaohong"};
+        for (int i = 0; i < users.length; i++) {
+            User user = new User();
+            user.setUserName(users[i]);
+            user.setUserStatus("E");
+            userMapper.insert(user);
+        }
+    }
+    /**
+    * @Description 主从操作测试
+    * @Author  chutaojing
+    * @Param
+    * @Return
+    * @Exception
+    * @Date   2021/01/18
+    */
     
+    @Test
+    public void queryUserOfMSById() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        User paramUser = new User();
+        paramUser.setUserId(557878499323412480L);
+        queryWrapper.setEntity(paramUser);
+        User user = userMapper.selectOne(queryWrapper);
+        System.out.println(user);
+    }
 }
